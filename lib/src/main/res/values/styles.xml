@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="InputNumberStyle">
+        <item name="android:layout_width">@dimen/in_dp_26</item>
+        <item name="android:layout_height">@dimen/in_dp_26</item>
+        <item name="android:paddingLeft">@dimen/in_dp_10</item>
+        <item name="android:paddingRight">@dimen/in_dp_10</item>
+        <item name="android:textColor">@drawable/color_input_number</item>
+        <item name="android:textSize">@dimen/in_dp_12</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/in_dp_2</item>
+        <item name="android:elevation" tools:ignore="NewApi">0dp</item>
+        <item name="android:stateListAnimator" tools:ignore="NewApi">@null</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="InputNumberStyle.Left" parent="InputNumberStyle">
+        <item name="android:text">@string/symbol_reduce</item>
+        <item name="android:background">@drawable/shape_input_number_left_background</item>
+    </style>
+
+    <style name="InputNumberStyle.Right" parent="InputNumberStyle">
+        <item name="android:text">@string/symbol_plus</item>
+        <item name="android:background">@drawable/shape_input_number_right_background</item>
+    </style>
+
+    <style name="InputNumberStyle.Center" parent="InputNumberStyle">
+        <item name="android:text">@string/default_number</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/shape_input_number_center_background</item>
+    </style>
+
+</resources>

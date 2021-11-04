@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    tools:gravity="end"
+    tools:orientation="horizontal"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <Button
+        android:id="@+id/btnNumberLeft"
+        style="@style/InputNumberStyle.Left" />
+
+    <TextView
+        android:id="@+id/btnNumberCenter"
+        style="@style/InputNumberStyle.Center"
+        android:layout_marginHorizontal="@dimen/in_dp_1"
+        android:maxLength="3" />
+
+    <Button
+        android:id="@+id/btnNumberRight"
+        style="@style/InputNumberStyle.Right" />
+
+</merge>

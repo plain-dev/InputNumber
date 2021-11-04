@@ -35,6 +35,7 @@ class InputNumberView @JvmOverloads constructor(
      */
     var minimum: Int = 1
         set(value) {
+            if (value >= maximum) return
             field = value
             initState()
         }
@@ -44,6 +45,7 @@ class InputNumberView @JvmOverloads constructor(
      */
     var maximum: Int = Int.MAX_VALUE
         set(value) {
+            if (value <= minimum) return
             field = value
             initState()
         }
@@ -52,6 +54,10 @@ class InputNumberView @JvmOverloads constructor(
      * Set the step size for each input, default: `1`
      */
     var step: Int = 1
+        set(value) {
+            if (step < 1) return
+            field = value
+        }
 
     /**
      * Set current number, default: `1`
@@ -120,13 +126,16 @@ class InputNumberView @JvmOverloads constructor(
                 minimum = minimum,
                 maximum = maximum
             ).apply {
-                onResult = {
-                    updateCallBack(it)
+                onResult = { // Double check
+                    if (checkUpdateNumber(it)) updateCallBack(it)
                 }
             }.show(fm, "CAEDialog-${UUID.randomUUID()}")
         }
     }
 
+    /**
+     * Check if the number is within the maximum and minimum range
+     */
     private fun checkUpdateNumber(number: Int): Boolean {
         return number in minimum..maximum
     }
@@ -134,37 +143,25 @@ class InputNumberView @JvmOverloads constructor(
     /**
      * Calculate the number
      */
-    private fun calNumber(thisNumber: Int, isAddition: Boolean, isOverride: Boolean = false) {
-        val tempNumber = if (isOverride) { // Override
-            thisNumber
+    private fun calNumber(thisNumber: Int, isAddition: Boolean) {
+        val tempNumber = if (isAddition) {
+            number + thisNumber
         } else {
-            if (isAddition) {
-                number + thisNumber
-            } else {
-                number - thisNumber
-            }
+            number - thisNumber
         }
-        if (isOverride) {
-            if (tempNumber in 1..maximum) {
-                updateCallBack(tempNumber)
+        if (isAddition) {
+            if (tempNumber > maximum) {  // Maybe a callback can be better
+                "无法加入更多".toast(context)
+                changeState(NUMBER_STATE_MAX)
             } else {
-                "请重新指定商品数量".toast(context)
+                updateCallBack(tempNumber)
             }
         } else {
-            if (isAddition) {
-                if (tempNumber > maximum) {  // Maybe a callback can be better
-                    "无法加入更多".toast(context)
-                    changeState(NUMBER_STATE_MAX)
-                } else {
-                    updateCallBack(tempNumber)
-                }
+            if (tempNumber < minimum) {  // Maybe a callback can be better
+                "数量不能在减少了".toast(context)
+                changeState(NUMBER_STATE_MIN)
             } else {
-                if (tempNumber < minimum) {  // Maybe a callback can be better
-                    "数量不能在减少了".toast(context)
-                    changeState(NUMBER_STATE_MIN)
-                } else {
-                    updateCallBack(tempNumber)
-                }
+                updateCallBack(tempNumber)
             }
         }
     }

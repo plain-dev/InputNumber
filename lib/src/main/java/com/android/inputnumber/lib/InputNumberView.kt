@@ -81,7 +81,15 @@ class InputNumberView @JvmOverloads constructor(
 
     init {
         orientation = HORIZONTAL
-        gravity = Gravity.END
+        /*
+         * - 对齐方式中必须存在 `Gravity.CENTER_VERTICAL`
+         * - `Gravity.CENTER_VERTICAL` must be present in the alignment
+         * - 否则在某些情况下 (e.g. `DialogFragment` 重新执行显示动画，但控件父布局中未设置此对齐方式) 会出现控件错位的问题
+         * - Otherwise, in some cases (e.g. `DialogFragment` re-executes the display animation, but this alignment is not set in the control parent layout), there will be a control misalignment problem
+         * - 和在 XML 设置 `android:gravity="end|center_vertical"` 等价
+         * - Equivalent to setting `android:gravity="end|center_vertical"` in XML
+         */
+        gravity = Gravity.END.or(Gravity.CENTER_VERTICAL)
         inflate(context, R.layout.layout_input_number, this)
     }
 
@@ -129,7 +137,7 @@ class InputNumberView @JvmOverloads constructor(
                 onResult = { // Double check
                     if (checkUpdateNumber(it)) updateCallBack(it)
                 }
-            }.show(fm, "CAEDialog-${UUID.randomUUID()}")
+            }.show(fm, "INEDialog-${UUID.randomUUID()}")
         }
     }
 

@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/color_white"
-    tools:gravity="end"
+    tools:gravity="end|center_vertical"
     tools:orientation="horizontal"
     tools:parentTag="android.widget.LinearLayout">
 
@@ -16,7 +16,7 @@
         android:id="@+id/btnNumberCenter"
         style="@style/InputNumberStyle.Center"
         android:layout_marginHorizontal="@dimen/in_dp_1"
-        android:maxLength="3" />
+        android:maxLength="8" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnNumberRight"

@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initInputNumberView(inputNumberView: InputNumberView) {
         with(inputNumberView) {
-            number = 10
+            number = 9990
             minimum  = 2
-            maximum = 20
-            step = 2
+            maximum = 9999
+            step = 10
             onInputNumberCallback = object : OnInputNumberCallback {
                 override fun onUpdateNeedConfirmation(
                     view: InputNumberView,

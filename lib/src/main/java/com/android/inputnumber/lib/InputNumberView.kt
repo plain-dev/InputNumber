@@ -1,3 +1,5 @@
+@file:Suppress("unused", "UNCHECKED_CAST")
+
 package com.android.inputnumber.lib
 
 import android.content.Context
@@ -79,6 +81,15 @@ class InputNumberView @JvmOverloads constructor(
             changeEditClick(value)
         }
 
+    /**
+     * Set input on or off
+     */
+    var isEnabledInput: Boolean = true
+        set(value) {
+            field = value
+            changeEnableInput(value)
+        }
+
     init {
         orientation = HORIZONTAL
         /*
@@ -100,10 +111,12 @@ class InputNumberView @JvmOverloads constructor(
     }
 
     private fun initState() {
-        when (number) {
-            minimum -> changeState(NUMBER_STATE_MIN)
-            maximum -> changeState(NUMBER_STATE_MAX)
-            else -> changeState(NUMBER_STATE_NORMAL)
+        if (isEnabledInput) {
+            when (number) {
+                minimum -> changeState(NUMBER_STATE_MIN)
+                maximum -> changeState(NUMBER_STATE_MAX)
+                else -> changeState(NUMBER_STATE_NORMAL)
+            }
         }
     }
 
@@ -238,6 +251,16 @@ class InputNumberView @JvmOverloads constructor(
      */
     private fun showNumber() {
         btnNumberCenter?.text = "$number"
+    }
+
+    /**
+     * Turn input on or off
+     */
+    private fun changeEnableInput(isEnabled: Boolean) {
+        btnNumberLeft?.isEnabled = isEnabled
+        btnNumberCenter?.isEnabled = isEnabled
+        btnNumberRight?.isEnabled = isEnabled
+        initState()
     }
 
     /**

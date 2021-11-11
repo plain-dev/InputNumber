@@ -4,15 +4,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.android.inputnumber.lib.InputNumberView
 import com.android.inputnumber.lib.callback.OnInputNumberCallback
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var inputNumberView: InputNumberView
+    private lateinit var switchEnable: SwitchMaterial
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inputNumberView = findViewById(R.id.inputNumberView)
+        switchEnable = findViewById(R.id.switchEnable)
+
+        switchEnable.setOnCheckedChangeListener { _, isChecked ->
+            inputNumberView.isEnabledInput = isChecked
+        }
 
         initInputNumberView(inputNumberView)
     }

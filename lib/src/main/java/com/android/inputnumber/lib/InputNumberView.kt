@@ -28,6 +28,7 @@ class InputNumberView @JvmOverloads constructor(
         const val NUMBER_STATE_NORMAL = 0x901
         const val NUMBER_STATE_MIN = 0x902
         const val NUMBER_STATE_MAX = 0x903
+        const val NUMBER_STATE_ALL = 0x904
     }
 
     var onInputNumberCallback: OnInputNumberCallback? = null
@@ -119,6 +120,7 @@ class InputNumberView @JvmOverloads constructor(
             val isNextMax = number + step > maximum
             val isNextMin = number - step < minimum
             when {
+                isNextMax && isNextMin -> changeState(NUMBER_STATE_ALL)
                 number == minimum || isNextMin -> changeState(NUMBER_STATE_MIN)
                 number == maximum || isNextMax -> changeState(NUMBER_STATE_MAX)
                 else -> changeState(NUMBER_STATE_NORMAL)
@@ -164,7 +166,8 @@ class InputNumberView @JvmOverloads constructor(
      * Check if the number is within the maximum and minimum range
      */
     private fun checkUpdateNumber(number: Int): Boolean {
-        return number in minimum..maximum
+        //return number in minimum..maximum
+        return true // No more check
     }
 
     /**
@@ -212,6 +215,10 @@ class InputNumberView @JvmOverloads constructor(
      */
     private fun changeState(state: Int) {
         when (state) {
+            NUMBER_STATE_ALL -> {
+                btnNumberLeft?.isEnabled = false
+                btnNumberRight?.isEnabled = false
+            }
             NUMBER_STATE_MAX -> {
                 btnNumberLeft?.isEnabled = true
                 btnNumberRight?.isEnabled = false

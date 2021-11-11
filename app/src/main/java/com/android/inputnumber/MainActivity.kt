@@ -17,10 +17,25 @@ class MainActivity : AppCompatActivity() {
         initInputNumberView(inputNumberView)
     }
 
+    /**
+     * Verify the predicted minimum
+     *
+     * number = 11
+     * minimum  = 2
+     * maximum = 9999
+     * step = 10
+     *
+     * Verify the predicted maximum
+     *
+     * number = 9990
+     * minimum  = 2
+     * maximum = 9999
+     * step = 10
+     */
     private fun initInputNumberView(inputNumberView: InputNumberView) {
         with(inputNumberView) {
-            number = 9990
-            minimum  = 2
+            number = 11
+            minimum = 2
             maximum = 9999
             step = 10
             onInputNumberCallback = object : OnInputNumberCallback {

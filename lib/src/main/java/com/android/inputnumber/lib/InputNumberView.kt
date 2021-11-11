@@ -59,6 +59,7 @@ class InputNumberView @JvmOverloads constructor(
         set(value) {
             if (step < 1) return
             field = value
+            initState()
         }
 
     /**
@@ -112,9 +113,14 @@ class InputNumberView @JvmOverloads constructor(
 
     private fun initState() {
         if (isEnabledInput) {
-            when (number) {
-                minimum -> changeState(NUMBER_STATE_MIN)
-                maximum -> changeState(NUMBER_STATE_MAX)
+            /**
+             * Predict the result of the next input in advance
+             */
+            val isNextMax = number + step > maximum
+            val isNextMin = number - step < minimum
+            when {
+                number == minimum || isNextMin -> changeState(NUMBER_STATE_MIN)
+                number == maximum || isNextMax -> changeState(NUMBER_STATE_MAX)
                 else -> changeState(NUMBER_STATE_NORMAL)
             }
         }
@@ -122,10 +128,10 @@ class InputNumberView @JvmOverloads constructor(
 
     private fun setClickListener() {
         btnNumberLeft?.setOnClickListener {
-            calNumber(step, false)  // Reduce
+            calNumber(number, step, false)  // Reduce
         }
         btnNumberRight?.setOnClickListener {
-            calNumber(step, true) // Plus
+            calNumber(number, step, true) // Plus
         }
         changeEditClick(isEdit)
     }
@@ -164,18 +170,20 @@ class InputNumberView @JvmOverloads constructor(
     /**
      * Calculate the number
      */
-    private fun calNumber(thisNumber: Int, isAddition: Boolean) {
-        val tempNumber = if (isAddition) {
-            number + thisNumber
-        } else {
-            number - thisNumber
-        }
+    private fun calNumber(currentNumber: Int, step: Int, isAddition: Boolean) {
+        val tempNumber = calNumber(isAddition, currentNumber, step)
         if (isAddition) {
             if (tempNumber > maximum) {  // Maybe a callback can be better
                 "无法加入更多".toast(context)
                 changeState(NUMBER_STATE_MAX)
             } else {
                 updateCallBack(tempNumber)
+
+                // Calculate the next result in advance and set the button state
+                //val nextNumber = calNumber(isAddition, tempNumber, step)
+                //if (nextNumber > maximum) {
+                //    changeState(NUMBER_STATE_MAX)
+                //}
             }
         } else {
             if (tempNumber < minimum) {  // Maybe a callback can be better
@@ -183,8 +191,20 @@ class InputNumberView @JvmOverloads constructor(
                 changeState(NUMBER_STATE_MIN)
             } else {
                 updateCallBack(tempNumber)
+
+                // Calculate the next result in advance and set the button state
+                //val nextNumber = calNumber(isAddition, tempNumber, step)
+                //if (nextNumber < minimum) {
+                //    changeState(NUMBER_STATE_MIN)
+                //}
             }
         }
+    }
+
+    private fun calNumber(isAddition: Boolean, currentNumber: Int, step: Int) = if (isAddition) {
+        currentNumber + step
+    } else {
+        currentNumber - step
     }
 
     /**
@@ -232,10 +252,7 @@ class InputNumberView @JvmOverloads constructor(
      * If the check fails or other conditions are not met, do not call this method
      */
     private fun update(newNumber: Int) {
-        if (checkUpdateNumber(newNumber)) {
-            number = newNumber
-            showNumberChangeState()
-        }
+        number = newNumber
     }
 
     /**

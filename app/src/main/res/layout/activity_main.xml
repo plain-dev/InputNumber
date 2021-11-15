@@ -15,13 +15,83 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switchEnable"
-        android:checked="true"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/in_dp_10"
-        android:text="Enable"
-        tools:ignore="HardcodedText" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/in_dp_10"
+            android:orientation="vertical">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchEnable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:checked="true"
+                android:text="Enable"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number (0~99999)" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slideNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
+                android:value="10"
+                android:valueFrom="0"
+                android:valueTo="99999" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max (1~99999)" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slideMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
+                android:value="10"
+                android:valueFrom="1"
+                android:valueTo="99999" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Min (0~99999)" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slideMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
+                android:value="10"
+                android:valueFrom="0"
+                android:valueTo="99999" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Step (1~99999)" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slideStep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
+                android:value="10"
+                android:valueFrom="1"
+                android:valueTo="99999" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

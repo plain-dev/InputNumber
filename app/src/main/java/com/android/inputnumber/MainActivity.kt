@@ -4,21 +4,46 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.android.inputnumber.lib.InputNumberView
 import com.android.inputnumber.lib.callback.OnInputNumberCallback
+import com.google.android.material.slider.Slider
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var inputNumberView: InputNumberView
     private lateinit var switchEnable: SwitchMaterial
+    private lateinit var slideNumber: Slider
+    private lateinit var slideMax: Slider
+    private lateinit var slideMin: Slider
+    private lateinit var slideStep: Slider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inputNumberView = findViewById(R.id.inputNumberView)
         switchEnable = findViewById(R.id.switchEnable)
+        slideNumber = findViewById(R.id.slideNumber)
+        slideMax = findViewById(R.id.slideMax)
+        slideMin = findViewById(R.id.slideMin)
+        slideStep = findViewById(R.id.slideStep)
 
         switchEnable.setOnCheckedChangeListener { _, isChecked ->
             inputNumberView.isEnabledInput = isChecked
+        }
+
+        slideNumber.addOnChangeListener { slider, value, fromUser ->
+            inputNumberView.number = value.toInt()
+        }
+
+        slideMax.addOnChangeListener { slider, value, fromUser ->
+            inputNumberView.maximum = value.toInt()
+        }
+
+        slideMin.addOnChangeListener { slider, value, fromUser ->
+            inputNumberView.minimum = value.toInt()
+        }
+
+        slideStep.addOnChangeListener { slider, value, fromUser ->
+            inputNumberView.step = value.toInt()
         }
 
         initInputNumberView(inputNumberView)

@@ -3,4 +3,6 @@
     <string name="symbol_plus">+</string>
     <string name="symbol_reduce">-</string>
     <string name="default_number">1</string>
+    <string name="input_hint">Please enter the number</string>
+    <string name="input_confirm">Confirm</string>
 </resources>

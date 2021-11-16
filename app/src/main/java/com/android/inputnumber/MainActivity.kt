@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initInputNumberView(inputNumberView: InputNumberView) {
         with(inputNumberView) {
+            isEdit = true
             number = 0
             minimum = 0
             maximum = 99

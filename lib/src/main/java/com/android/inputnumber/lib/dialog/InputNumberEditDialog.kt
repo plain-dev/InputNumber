@@ -84,7 +84,7 @@ internal class InputNumberEditDialog : DialogFragment() {
             }
         }
         etCount?.apply {
-            delayedShowSoftKeyboard(context, 2000) {
+            delayedShowSoftKeyboard(context, 500) {
                 completeShowPopupSoftKeyboard = true
             }
             addTextChangedListener(onTextChanged = { text, _, _, _ ->

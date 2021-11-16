@@ -46,7 +46,7 @@ internal class InputNumberEditDialog : DialogFragment() {
 
     private var currentInputCount = -1
 
-    private var completeShowPopupSoftKeyboard = false
+    private var completeFirstShowSoftKeyboard = false
 
     override fun onStart() {
         super.onStart()
@@ -77,7 +77,7 @@ internal class InputNumberEditDialog : DialogFragment() {
         dialog?.window?.decorView?.let {
             ViewCompat.setOnApplyWindowInsetsListener(it) { _, insets ->
                 val isShowIME = insets.isVisible(WindowInsetsCompat.Type.ime())
-                if (completeShowPopupSoftKeyboard && !isShowIME) { // Close the dialog while closing the soft keyboard
+                if (completeFirstShowSoftKeyboard && !isShowIME) { // Close the dialog while closing the soft keyboard
                     dismissAllowingStateLoss()
                 }
                 insets
@@ -85,7 +85,7 @@ internal class InputNumberEditDialog : DialogFragment() {
         }
         etCount?.apply {
             delayedShowSoftKeyboard(context, 500) {
-                completeShowPopupSoftKeyboard = true
+                completeFirstShowSoftKeyboard = true
             }
             addTextChangedListener(onTextChanged = { text, _, _, _ ->
                 currentInputCount = text?.toString()?.toIntOrNull() ?: -1

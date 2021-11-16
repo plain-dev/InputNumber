@@ -177,7 +177,7 @@ class InputNumberView @JvmOverloads constructor(
         val tempNumber = calNumber(isAddition, currentNumber, step)
         if (isAddition) {
             if (tempNumber > maximum) {  // Maybe a callback can be better
-                "无法加入更多".toast(context)
+                "Maximum input $maximum".toast(context)
                 changeState(NUMBER_STATE_MAX)
             } else {
                 updateCallBack(tempNumber)
@@ -190,7 +190,7 @@ class InputNumberView @JvmOverloads constructor(
             }
         } else {
             if (tempNumber < minimum) {  // Maybe a callback can be better
-                "数量不能在减少了".toast(context)
+                "Minimum input $minimum".toast(context)
                 changeState(NUMBER_STATE_MIN)
             } else {
                 updateCallBack(tempNumber)

@@ -43,7 +43,10 @@ private class UIThreadLifecycleObserver(activity: FragmentActivity?) : Lifecycle
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
         HANDLER.removeCallbacksAndMessages(null)
-        weakReferenceActivity.get()?.lifecycle?.removeObserver(this)
+        weakReferenceActivity.apply {
+            get()?.lifecycle?.removeObserver(this@UIThreadLifecycleObserver)
+            clear()
+        }
     }
 
 }
